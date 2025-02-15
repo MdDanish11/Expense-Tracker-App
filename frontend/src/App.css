@@ -1,0 +1,133 @@
+/* Styles for the Navbar */
+nav {
+  background-color: #007bff;
+  padding: 10px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+  color: white;
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+nav button {
+  background-color: #dc3545;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+nav button:hover {
+  background-color: #c82333;
+}
+
+/* Styles for the Dashboard */
+.dashboard {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.dashboard h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #007bff;
+}
+
+/* Styles for the Expense Overview */
+.expense-overview {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.expense-overview h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #007bff;
+}
+
+.expense-overview ul {
+  list-style: none;
+  padding: 0;
+}
+
+.expense-overview li {
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-overview li span {
+  font-weight: bold;
+  color: #007bff;
+}
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form {
+    width: 90%;
+  }
+
+  .dashboard, .expense-overview {
+    width: 90%;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 601px) and (max-width: 1024px) {
+  form {
+    width: 70%;
+  }
+
+  .dashboard, .expense-overview {
+    width: 70%;
+  }
+}
