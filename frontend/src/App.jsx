@@ -5,8 +5,8 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Dashboard from "./pages/Dashboard";
 import ExpenseOverview from "./pages/ExpenseOverview";
-import AddExpense from "./pages/AddExpense"; // ✅ Import AddExpense page
-import AddIncome from "./pages/AddIncome"; // ✅ Import AddIncome page
+import AddExpense from "./pages/AddExpense";
+import AddIncome from "./pages/AddIncome";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
@@ -22,12 +22,10 @@ function App() {
           <Route path="/signup" element={<Signup />} />
 
           {/* Protected Routes */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/expenses" element={<ExpenseOverview />} />
-            <Route path="/add-expense" element={<AddExpense />} /> {/* ✅ Add route */}
-            <Route path="/add-income" element={<AddIncome />} /> {/* ✅ Add route */}
-          </Route>
+          <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/expenses" element={<ProtectedRoute><ExpenseOverview /></ProtectedRoute>} />
+          <Route path="/add-expense" element={<ProtectedRoute><AddExpense /></ProtectedRoute>} />
+          <Route path="/add-income" element={<ProtectedRoute><AddIncome /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </Router>

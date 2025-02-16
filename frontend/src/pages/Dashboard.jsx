@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ExpenseChart from "../components/ExpenseChart";
-import ExpenseBarChart from "../components/ExpenseBarChart"; 
+import ExpenseBarChart from "../components/ExpenseBarChart";
 
 const Dashboard = () => {
   const [chartData, setChartData] = useState({
@@ -12,7 +12,11 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/monthly-summary");
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:5000/api/monthly-summary", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
         const { income, expenses } = response.data;
 
         setChartData({
@@ -31,6 +35,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <h1>Dashboard</h1>
       <ExpenseChart data={chartData} />
+      <ExpenseBarChart data={chartData} />
     </div>
   );
 };
