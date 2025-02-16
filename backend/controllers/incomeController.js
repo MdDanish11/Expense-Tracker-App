@@ -1,8 +1,12 @@
 const Income = require("../models/Income");
 
-// Add Income
 exports.addIncome = async (req, res) => {
   const { month, year, amount } = req.body;
+
+  if (!month || !year || !amount) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
   try {
     const income = new Income({
       userId: req.userId,
@@ -17,7 +21,6 @@ exports.addIncome = async (req, res) => {
   }
 };
 
-// Lock Income
 exports.lockIncome = async (req, res) => {
   const { id } = req.params;
   try {
@@ -35,7 +38,6 @@ exports.lockIncome = async (req, res) => {
   }
 };
 
-// Get All Income
 exports.getIncome = async (req, res) => {
   try {
     const income = await Income.find({ userId: req.userId });

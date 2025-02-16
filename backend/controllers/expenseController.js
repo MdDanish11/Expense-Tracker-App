@@ -1,8 +1,12 @@
 const Expense = require("../models/Expense");
 
-// Add Expense
 exports.addExpense = async (req, res) => {
   const { title, amount, category, date } = req.body;
+
+  if (!title || !amount || !category || !date) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
   try {
     const expense = new Expense({
       userId: req.userId,
@@ -18,7 +22,6 @@ exports.addExpense = async (req, res) => {
   }
 };
 
-// Get All Expenses
 exports.getExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find({ userId: req.userId });
@@ -28,10 +31,14 @@ exports.getExpenses = async (req, res) => {
   }
 };
 
-// Edit Expense
 exports.editExpense = async (req, res) => {
   const { id } = req.params;
   const { title, amount, category, date } = req.body;
+
+  if (!title || !amount || !category || !date) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
   try {
     const expense = await Expense.findOneAndUpdate(
       { _id: id, userId: req.userId },
@@ -47,7 +54,6 @@ exports.editExpense = async (req, res) => {
   }
 };
 
-// Delete Expense
 exports.deleteExpense = async (req, res) => {
   const { id } = req.params;
   try {
