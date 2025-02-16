@@ -25,6 +25,7 @@ const Dashboard = () => {
         });
       } catch (error) {
         console.error("Failed to fetch data:", error);
+        alert("Failed to fetch data. Please try again.");
       }
     };
 

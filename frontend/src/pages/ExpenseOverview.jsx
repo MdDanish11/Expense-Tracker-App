@@ -7,10 +7,14 @@ const ExpenseOverview = () => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/expenses");
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:5000/api/expenses", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setExpenses(response.data);
       } catch (error) {
         console.error("Failed to fetch expenses:", error);
+        alert("Failed to fetch expenses. Please try again.");
       }
     };
 
