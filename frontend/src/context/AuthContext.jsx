@@ -9,22 +9,26 @@ export const AuthProvider = ({ children }) => {
   // Fetch user details when app loads
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
-
-    if (token) {
-      try {
-        const response = await axios.get("http://localhost:5000/api/auth/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        console.log("Fetched user:", response.data.user); // Debugging
-        setUser(response.data.user);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setUser(null);
-      }
+  
+    if (!token) {
+      console.log("No token found");
+      setUser(null);
+      return;
+    }
+  
+    try {
+      const response = await axios.get("http://localhost:5000/api/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      console.log("Fetched user:", response.data.user); // Debugging
+      setUser(response.data.user); // Set the user state
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setUser(null);
+      localStorage.removeItem("token"); // Clear invalid token
     }
   };
-
   useEffect(() => {
     fetchUser();
   }, []);
@@ -45,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ✅ Fixed: Store token & fetch user after signup
+  // Store token & fetch user after signup
   const signup = async (username, password) => {
     try {
       const response = await axios.post("http://localhost:5000/api/auth/signup", { username, password });
@@ -61,7 +65,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ✅ Fixed logout to clear everything
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("token");
