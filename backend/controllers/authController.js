@@ -50,7 +50,7 @@ const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "24h" });
 
     res.json({ token, userId: user._id, username: user.username, message: "Login successful" });
   } catch (error) {
@@ -61,11 +61,11 @@ const login = async (req, res) => {
 
 const getUserData = async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
+    const user = await User.findById(req.userId).select("-password"); // Exclude password
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.json({ username: user.username, userId: user._id });
+    res.json({ user }); // Return the user object
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).json({ error: "Internal Server Error" });
